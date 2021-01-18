@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-cli
+  namespace: default
+  labels:
+    app: aws-cli
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: aws-cli
+  template:
+    metadata:
+      labels:
+        app: aws-cli
+    spec:
+      # This where you call the SA to assign to the Pods.
+      serviceAccountName: s3-policy
+      containers:
+        - name: aws-cli
+          image: ubuntu
+          command: ["tail", "-f", "/dev/null"]
